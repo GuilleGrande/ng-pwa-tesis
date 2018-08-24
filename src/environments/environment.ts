@@ -5,12 +5,12 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "AIzaSyAN5kjhBJPdXhiHVKY-B80i8819c8tvxLk",
-    authDomain: "pwa-tesis.firebaseapp.com",
-    databaseURL: "https://pwa-tesis.firebaseio.com",
-    projectId: "pwa-tesis",
-    storageBucket: "pwa-tesis.appspot.com",
-    messagingSenderId: "468784876088"
+    apiKey: "AIzaSyAjSZmXlRTX214rWxcTDjAMxUD9no7Y9zk",
+    authDomain: "ng-pwa-tesis.firebaseapp.com",
+    databaseURL: "https://ng-pwa-tesis.firebaseio.com",
+    projectId: "ng-pwa-tesis",
+    storageBucket: "",
+    messagingSenderId: "927685107641"
   }
 };
 
