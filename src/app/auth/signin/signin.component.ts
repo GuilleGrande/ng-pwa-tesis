@@ -8,7 +8,7 @@ import { SharedModule } from '../../shared/shared.module';
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
-  styleUrls: ['./signin.component.css']
+  styleUrls: ['./signin.component.css', '../auth.styles.css']
 })
 export class SigninComponent implements OnInit {
 
@@ -44,9 +44,9 @@ export class SigninComponent implements OnInit {
   signIn() {
     return this.auth.emailSignIn(this.email.value, this.password.value)
             .then(user => {
-              if (this.signInForm.valid) [
+              if (this.signInForm.valid) {
                 this.router.navigate(['/'])
-              ]
+              }
             })
   }
 
