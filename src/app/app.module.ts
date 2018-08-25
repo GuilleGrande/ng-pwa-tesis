@@ -1,23 +1,23 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
 import { AngularFireModule } from 'angularfire2';
-
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MaterialModule } from './/material.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
 import { CoreModule } from './core/core.module';
 import { environment } from '../environments/environment';
+import { MaterialModule } from './/material.module';
+import { NgModule } from '@angular/core';
+
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
-    BrowserModule,
+    AngularFireModule.initializeApp(environment.firebase),
     AppRoutingModule,
-    MaterialModule,
+    BrowserAnimationsModule,
+    BrowserModule,
     CoreModule,
-    AngularFireModule.initializeApp(environment.firebase)
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

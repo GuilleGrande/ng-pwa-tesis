@@ -1,14 +1,12 @@
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router'
-
+import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireStorageModule } from 'angularfire2/storage';
-import { AngularFireAuth } from 'angularfire2/auth';
-
-import { Observable, of } from 'rxjs';
-import 'rxjs/add/operator/switchMap';
 import { errorHandler } from '@angular/platform-browser/src/browser';
 import { error } from 'util';
+import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { Router } from '@angular/router';
+import 'rxjs/add/operator/switchMap';
 
 interface User {
   uid: string,
