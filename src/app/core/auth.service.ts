@@ -10,6 +10,7 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
+import * as firebase from 'firebase/app';
 
 
 interface User {
@@ -27,6 +28,7 @@ interface User {
 export class AuthService {
 
   user: Observable<User>
+  authState: any = null;
 
   constructor(private afAuth: AngularFireAuth,
     private db: AngularFirestore,
@@ -39,7 +41,17 @@ export class AuthService {
       else {
         return of(null);
       }
-    })
+    });
+
+    this.afAuth.authState.subscribe(data => this.authState = data);
+  }
+
+  get authenticated(): boolean {
+    return this.authState !== null;
+  }
+
+  get currentUserId(): string {
+    return this.authenticated ? this.authState.user.uid : null;
   }
 
   emailSignIn(email: string, password: string) {
@@ -51,10 +63,20 @@ export class AuthService {
   emailSignUp(email: string, password: string) {
     console.log('From emailSignUp() Email: ' + email);
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
-      .then((userRef) => { this.updateUserData(userRef) })
+      .then((userCredential) => { this.updateUserData(userCredential.user) })
       .then(() => console.log("Welcome, your account has been created"))
+      .then((userRef) => { this.afAuth.auth.currentUser.sendEmailVerification()
+        .then(() => console.log('We sent an email verification'))
+        .catch(error => console.log(error.message))
+      })
       .catch(error => console.log('Error code : ' + error.code +
         '| Error message: ' + error.message));
+  }
+
+  resetPassword(email: string) {
+    return firebase.auth().sendPasswordResetEmail(email)
+            .then(() => console.log('We sent you a password reset link'))
+            .catch(error => console.log(error.message));
   }
 
   signOut() {
@@ -62,17 +84,41 @@ export class AuthService {
       .then(() => { this.router.navigate(['/']) })
   }
 
-  private updateUserData(users) {
-    const userRef: AngularFirestoreDocument<User> = this.db.doc(`users/${users.user.uid}`);
+  private updateUserData(user) {
+    const userRef: AngularFirestoreDocument<User> = this.db.doc(`users/${user.uid}`);
     const data: User = {
-      uid: users.user.uid,
-      email: users.user.email || null,
+      uid: user.uid,
+      email: user.email || null,
       //firstName: user.firstName,
       //lastName: user.lastName,
-      displayName: users.user.displayName,
-      photoUrl: "https://www.gravatar.com/avatar/" + Md5.hashStr(users.user.uid) + "?d=identicon"
+      displayName: user.displayName,
+      photoUrl: "https://www.gravatar.com/avatar/" + Md5.hashStr(user.uid) + "?d=identicon"
     }
     return userRef.set(data, { merge: true });
+  }
+
+  googleLogin() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    return this.socialLogin(provider);
+  }
+
+  /*
+  facebookLogin() {
+    const provider = new firebase.auth.FacebookAuthProvider();
+    return this.socialLogin(provider);
+  }
+
+  twitterLogin() {
+    const provider = new firebase.auth.TwitterAuthProvider();
+    return this.socialLogin(provider);
+  }*/
+
+  private socialLogin(provider) {
+    return this.afAuth.auth.signInWithPopup(provider)
+            .then((credential) => {
+              return this.updateUserData(credential.user)
+            })
+            .catch((error) => console.log(error.message));
   }
 
 }

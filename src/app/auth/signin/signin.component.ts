@@ -17,7 +17,7 @@ export class SigninComponent implements OnInit {
 
   constructor(
     public formBuilder: FormBuilder,
-    private auth: AuthService,
+    public auth: AuthService,
     private router: Router
   ) {
     this.signInForm = this.formBuilder.group({
