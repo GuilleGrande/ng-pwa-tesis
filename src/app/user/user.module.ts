@@ -10,7 +10,7 @@ import { UserService } from './user.service';
 const routes: Routes = [
   { path: 'me', component: UserDashboardComponent, data: { title: "Dashboard" } },
   { path: 'users', component: UserListComponent, data: { title: "Users" } },
-  { path: 'profile', component: UserDetailComponent, data: { title: "Profile" } }
+  { path: 'users/:id', component: UserDetailComponent, data: { title: "Profile" } }
 ]
 
 @NgModule({
@@ -18,6 +18,7 @@ const routes: Routes = [
     SharedModule,
     RouterModule.forChild(routes)
   ],
+  exports: [ UserListItemComponent ],
   declarations: [UserDashboardComponent, UserDetailComponent, UserListComponent, UserListItemComponent],
   providers: [ UserService ]
 })

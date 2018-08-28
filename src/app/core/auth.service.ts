@@ -1,9 +1,6 @@
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFirestoreDocument } from 'angularfire2/firestore';
-import { AngularFireStorageModule } from 'angularfire2/storage';
-import { errorHandler } from '@angular/platform-browser/src/browser';
-import { error } from 'util';
 import { Injectable } from '@angular/core';
 import { Md5 } from 'ts-md5/dist/md5';
 import { Observable } from 'rxjs/Observable';
@@ -60,10 +57,9 @@ export class AuthService {
       .catch(error => console.log(error.message))
   }
 
-  emailSignUp(email: string, password: string) {
-    console.log('From emailSignUp() Email: ' + email);
+  emailSignUp(email: string, password: string, displayName: string) {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
-      .then((userCredential) => { this.updateUserData(userCredential.user) })
+      .then((userCredential) => { this.updateUserData(userCredential.user, displayName) })
       .then(() => console.log("Welcome, your account has been created"))
       .then((userRef) => { this.afAuth.auth.currentUser.sendEmailVerification()
         .then(() => console.log('We sent an email verification'))
@@ -84,14 +80,12 @@ export class AuthService {
       .then(() => { this.router.navigate(['/']) })
   }
 
-  private updateUserData(user) {
+  private updateUserData(user, displayName) {
     const userRef: AngularFirestoreDocument<User> = this.db.doc(`users/${user.uid}`);
     const data: User = {
       uid: user.uid,
       email: user.email || null,
-      //firstName: user.firstName,
-      //lastName: user.lastName,
-      displayName: user.displayName,
+      displayName: displayName,
       photoUrl: "https://www.gravatar.com/avatar/" + Md5.hashStr(user.uid) + "?d=identicon"
     }
     return userRef.set(data, { merge: true });
@@ -116,7 +110,7 @@ export class AuthService {
   private socialLogin(provider) {
     return this.afAuth.auth.signInWithPopup(provider)
             .then((credential) => {
-              return this.updateUserData(credential.user)
+              return this.updateUserData(credential.user, credential.user.displayName)
             })
             .catch((error) => console.log(error.message));
   }
