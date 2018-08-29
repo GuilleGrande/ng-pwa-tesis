@@ -7,17 +7,9 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
+import { User } from '../user/user.model';
 import * as firebase from 'firebase/app';
 
-
-interface User {
-  uid: string,
-  email: string,
-  //firstName: string,
-  //lastName: string,
-  displayName?: string,
-  photoUrl?: string
-}
 
 @Injectable({
   providedIn: 'root'
@@ -86,7 +78,7 @@ export class AuthService {
       uid: user.uid,
       email: user.email || null,
       displayName: displayName,
-      photoUrl: "https://www.gravatar.com/avatar/" + Md5.hashStr(user.uid) + "?d=identicon"
+      photoUrl: user.photoUrl || "https://www.gravatar.com/avatar/" + Md5.hashStr(user.uid) + "?d=identicon"
     }
     return userRef.set(data, { merge: true });
   }
@@ -95,17 +87,6 @@ export class AuthService {
     const provider = new firebase.auth.GoogleAuthProvider();
     return this.socialLogin(provider);
   }
-
-  /*
-  facebookLogin() {
-    const provider = new firebase.auth.FacebookAuthProvider();
-    return this.socialLogin(provider);
-  }
-
-  twitterLogin() {
-    const provider = new firebase.auth.TwitterAuthProvider();
-    return this.socialLogin(provider);
-  }*/
 
   private socialLogin(provider) {
     return this.afAuth.auth.signInWithPopup(provider)

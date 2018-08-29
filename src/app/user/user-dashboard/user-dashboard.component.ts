@@ -1,4 +1,8 @@
+import { AuthService } from '../../core/auth.service';
 import { Component, OnInit } from '@angular/core';
+import { User } from '../user.model';
+import { UserService } from '../user.service';
+
 
 @Component({
   selector: 'app-user-dashboard',
@@ -7,9 +11,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserDashboardComponent implements OnInit {
 
-  constructor() { }
+  user: User;
+  editing: false;
+
+  constructor(
+    private auth: AuthService,
+    private userService: UserService
+  ) { 
+
+  }
 
   ngOnInit() {
+    this.getUser();
+  }
+
+  getUser() {
+    return this.auth.user.subscribe(user => (this.user = user));
+  }
+
+  updateProfile() {
+    return this.userService.updateProfileData(this.user.displayName, this.user.photoUrl);
+  }
+
+  updateEmail() {
+    return this.userService.updateEmailData(this.user.email);
   }
 
 }
