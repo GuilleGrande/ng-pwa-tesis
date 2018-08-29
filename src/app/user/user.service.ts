@@ -13,11 +13,17 @@ import { User } from './user.model';
 export class UserService {
 
   userCollection: AngularFirestoreCollection<User>;
+  userDoc: AngularFirestoreDocument<User>;
 
   constructor(private db: AngularFirestore) { }
 
   getUsers() {
     this.userCollection = this.db.collection('users');
     return this.userCollection.valueChanges();
+  }
+
+  getUser(userId: string) {
+    this.userDoc = this.db.doc<User>(`users/${ userId }`);
+    return this.userDoc.valueChanges();
   }
 }
