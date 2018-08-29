@@ -32,6 +32,7 @@ export class UserService {
   updateProfileData(displayName: string, photoUrl: string) {
     const user = this.auth.authState;
     const data = { displayName, photoUrl };
+    console.log(data);
     
     return user.updateProfile(data)
             .then(() => this.db.doc(`users/${user.uid}`).update({ displayName, photoUrl }))
@@ -50,8 +51,5 @@ export class UserService {
               .catch((error) => console.log(error.message))
               )
             .catch((error) => console.log(error.message));
-
-
-
   }
 }

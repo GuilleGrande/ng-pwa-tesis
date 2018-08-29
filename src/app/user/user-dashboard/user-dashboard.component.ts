@@ -1,7 +1,10 @@
 import { AuthService } from '../../core/auth.service';
+import { AngularFireUploadTask } from 'angularfire2/storage';
+import { AngularFireStorage } from 'angularfire2/storage';
 import { Component, OnInit } from '@angular/core';
 import { User } from '../user.model';
 import { UserService } from '../user.service';
+
 
 
 @Component({
@@ -13,10 +16,12 @@ export class UserDashboardComponent implements OnInit {
 
   user: User;
   editing: false;
+  task: AngularFireUploadTask;
 
   constructor(
     private auth: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private storage: AngularFireStorage
   ) { 
 
   }
@@ -37,4 +42,18 @@ export class UserDashboardComponent implements OnInit {
     return this.userService.updateEmailData(this.user.email);
   }
 
+  uploadPhoto(event): void {
+    const file = event.target.files[0];
+    const path = `users/${this.user.uid}/photos/${file.name}`;
+    const fileRef = this.storage.ref(path);
+
+    if (file.type.split('/')[0] !== 'image') {
+      return alert('Only images allowed')
+    } 
+    else {
+      this.task = this.storage.upload(path, file);
+      fileRef.getDownloadURL().subscribe((url) => 
+        this.userService.updateProfileData(this.user.displayName, url));
+    }
+  }
 }

@@ -6,10 +6,6 @@
         <p>Lets get started</p>
 
         <mat-form-field [formGroup]="signUpForm">
-          <input matInput placeholder="Enter your name" [formControl]="displayName" required>
-        </mat-form-field>
-
-        <mat-form-field [formGroup]="signUpForm">
           <input matInput placeholder="Enter email" [formControl]="email" required>
           <mat-error *ngIf="email.valid">Not valid email</mat-error>
         </mat-form-field>

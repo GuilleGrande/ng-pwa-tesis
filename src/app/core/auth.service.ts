@@ -49,9 +49,9 @@ export class AuthService {
       .catch(error => console.log(error.message))
   }
 
-  emailSignUp(email: string, password: string, displayName: string) {
+  emailSignUp(email: string, password: string) {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
-      .then((userCredential) => { this.updateUserData(userCredential.user, displayName) })
+      .then((userCredential) => { this.updateUserData(userCredential.user) })
       .then(() => console.log("Welcome, your account has been created"))
       .then((userRef) => { this.afAuth.auth.currentUser.sendEmailVerification()
         .then(() => console.log('We sent an email verification'))
@@ -72,12 +72,12 @@ export class AuthService {
       .then(() => { this.router.navigate(['/']) })
   }
 
-  private updateUserData(user, displayName) {
+  private updateUserData(user) {
     const userRef: AngularFirestoreDocument<User> = this.db.doc(`users/${user.uid}`);
     const data: User = {
       uid: user.uid,
       email: user.email || null,
-      displayName: displayName,
+      displayName: user.displayName || null,
       photoUrl: user.photoUrl || "https://www.gravatar.com/avatar/" + Md5.hashStr(user.uid) + "?d=identicon"
     }
     return userRef.set(data, { merge: true });
@@ -91,7 +91,7 @@ export class AuthService {
   private socialLogin(provider) {
     return this.afAuth.auth.signInWithPopup(provider)
             .then((credential) => {
-              return this.updateUserData(credential.user, credential.user.displayName)
+              return this.updateUserData(credential.user)
             })
             .catch((error) => console.log(error.message));
   }

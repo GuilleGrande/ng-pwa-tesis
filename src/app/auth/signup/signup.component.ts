@@ -21,7 +21,6 @@ export class SignupComponent implements OnInit {
     private router: Router
   ) {
     this.signUpForm = this.formBuilder.group({
-      displayName: ['', [Validators.required]],
       email: ['', [Validators.email, Validators.required]],
       password: ['', [
         Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$'),
@@ -34,10 +33,6 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
   }
 
-  get displayName() {
-    return this.signUpForm.get('displayName');
-  }
-
   get email() {
       return this.signUpForm.get('email');
   }
@@ -47,7 +42,7 @@ export class SignupComponent implements OnInit {
   }
 
   signUp() {
-    return this.auth.emailSignUp(this.email.value, this.password.value, this.displayName.value)
+    return this.auth.emailSignUp(this.email.value, this.password.value)
             .then(user => {
               if (this.signUpForm.valid) {
                 this.router.navigate(['/'])
