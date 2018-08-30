@@ -2,6 +2,7 @@ import { AuthService } from '../../core/auth.service';
 import { AngularFireUploadTask } from 'angularfire2/storage';
 import { AngularFireStorage } from 'angularfire2/storage';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { User } from '../user.model';
 import { UserService } from '../user.service';
 
@@ -17,6 +18,7 @@ export class UserDashboardComponent implements OnInit {
   user: User;
   editing: false;
   task: AngularFireUploadTask;
+  downloadUrl: Observable<string>;
 
   constructor(
     private auth: AuthService,
@@ -52,8 +54,9 @@ export class UserDashboardComponent implements OnInit {
     } 
     else {
       this.task = this.storage.upload(path, file);
-      fileRef.getDownloadURL().subscribe((url) => 
-        this.userService.updateProfileData(this.user.displayName, url));
+      this.task.snapshotChanges().subscribe(() => 
+        fileRef.getDownloadURL().subscribe((url) =>
+          this.userService.updateProfileData(this.user.displayName, url)));
     }
   }
 }
