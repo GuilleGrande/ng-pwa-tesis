@@ -8,3 +8,19 @@ mat-card {
 mat-card-content, mat-card-actions {
     margin: 1em;
 }
+.photo {
+    border-radius: 50%;
+    border: 2px solid white;
+    height: 150px;
+    width: 150px;
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: multiply;
+    vertical-align: middle;
+    text-align: center;
+    color: transparent;
+    transition: all .3s ease;
+    text-decoration: none;
+    float: right;
+    margin-right: 16px;
+}

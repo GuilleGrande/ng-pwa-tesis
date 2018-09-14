@@ -2,6 +2,7 @@ import { AuthService } from '../../core/auth.service';
 import { AngularFireUploadTask } from 'angularfire2/storage';
 import { AngularFireStorage } from 'angularfire2/storage';
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { Observable } from 'rxjs';
 import { User } from '../user.model';
 import { UserService } from '../user.service';
@@ -23,7 +24,8 @@ export class UserDashboardComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private userService: UserService,
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage,
+    private location: Location
   ) { 
 
   }
@@ -58,5 +60,9 @@ export class UserDashboardComponent implements OnInit {
         fileRef.getDownloadURL().subscribe((url) =>
           this.userService.updateProfileData(this.user.displayName, url)));
     }
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

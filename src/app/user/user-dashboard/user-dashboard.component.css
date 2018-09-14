@@ -14,8 +14,6 @@ mat-form-field {
     color: transparent;
     transition: all .3s ease;
     text-decoration: none;
-    float: right;
-    margin-right: 16px;
 }
 .photoUrl:hover {
     background-color: rgba(0, 0, 0, .5);
