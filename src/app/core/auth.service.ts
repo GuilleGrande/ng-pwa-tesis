@@ -1,26 +1,15 @@
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFirestoreDocument } from 'angularfire2/firestore';
-import { AngularFireStorageModule } from 'angularfire2/storage';
-import { errorHandler } from '@angular/platform-browser/src/browser';
-import { error } from 'util';
 import { Injectable } from '@angular/core';
 import { Md5 } from 'ts-md5/dist/md5';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
+import { User } from '../user/user.model';
 import * as firebase from 'firebase/app';
 
-
-interface User {
-  uid: string,
-  email: string,
-  //firstName: string,
-  //lastName: string,
-  displayName?: string,
-  photoUrl?: string
-}
 
 @Injectable({
   providedIn: 'root'
@@ -61,7 +50,6 @@ export class AuthService {
   }
 
   emailSignUp(email: string, password: string) {
-    console.log('From emailSignUp() Email: ' + email);
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
       .then((userCredential) => { this.updateUserData(userCredential.user) })
       .then(() => console.log("Welcome, your account has been created"))
@@ -89,10 +77,8 @@ export class AuthService {
     const data: User = {
       uid: user.uid,
       email: user.email || null,
-      //firstName: user.firstName,
-      //lastName: user.lastName,
-      displayName: user.displayName,
-      photoUrl: "https://www.gravatar.com/avatar/" + Md5.hashStr(user.uid) + "?d=identicon"
+      displayName: user.displayName || null,
+      photoUrl: user.photoUrl || "https://www.gravatar.com/avatar/" + Md5.hashStr(user.uid) + "?d=identicon"
     }
     return userRef.set(data, { merge: true });
   }
@@ -101,17 +87,6 @@ export class AuthService {
     const provider = new firebase.auth.GoogleAuthProvider();
     return this.socialLogin(provider);
   }
-
-  /*
-  facebookLogin() {
-    const provider = new firebase.auth.FacebookAuthProvider();
-    return this.socialLogin(provider);
-  }
-
-  twitterLogin() {
-    const provider = new firebase.auth.TwitterAuthProvider();
-    return this.socialLogin(provider);
-  }*/
 
   private socialLogin(provider) {
     return this.afAuth.auth.signInWithPopup(provider)

@@ -9,7 +9,7 @@ export const environment = {
     authDomain: "ng-pwa-tesis.firebaseapp.com",
     databaseURL: "https://ng-pwa-tesis.firebaseio.com",
     projectId: "ng-pwa-tesis",
-    storageBucket: "",
+    storageBucket: "ng-pwa-tesis.appspot.com",
     messagingSenderId: "927685107641"
   }
 };
