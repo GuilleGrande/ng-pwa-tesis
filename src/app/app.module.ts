@@ -1,7 +1,7 @@
 import { AngularFireModule } from 'angularfire2';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { environment } from '../environments/environment';
 import { MaterialModule } from './/material.module';
@@ -14,8 +14,8 @@ import { AppRoutingModule } from './app-routing.module';
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
     AppRoutingModule,
-    BrowserAnimationsModule,
     BrowserModule,
+    BrowserAnimationsModule,
     CoreModule,
     MaterialModule
   ],
