@@ -1,3 +1,62 @@
-<p>
-  car-dashboard works!
-</p>
+<mat-card>
+
+  <mat-card-title>
+    Create new car
+  </mat-card-title>
+  
+  <section>
+
+    <input type="file" name="file" id="file" (change)="uploadCarPhoto($event)">
+    
+    <div [hidden]="!uploadProgress">
+      <mat-progress-bar mode="determinate" value="{{ uploadProgress | async }}"></mat-progress-bar>
+    </div>
+
+    <a [href]="downloadUrl | async" [hidden]="!downloadUrl">{{ downloadUrl | async }}</a>
+    
+    <div class="image-preview" [hidden]="!imageUrl">
+      <img [src]="imageUrl || '//:0'">
+    </div>
+
+  </section>
+
+  <section>
+    <form [formGroup]="carForm" (ngSubmit)="saveCar()">
+
+      <mat-form-field [formGroup]="carForm">
+          <mat-select placeholder="Select year" name="year" formControlName="year">
+            <mat-option *ngFor="let year of years" [value]="year.value">
+              {{ year.value }}
+            </mat-option>
+          </mat-select>
+      </mat-form-field>
+
+      <br>
+
+      <mat-form-field [formGroup]="carForm">
+        <input matInput placeholder="Enter car make" formControlName="make">
+      </mat-form-field>
+
+      <br>
+      
+      <mat-form-field [formGroup]="carForm">
+        <input matInput placeholder="Enter car model" formControlName="model">
+      </mat-form-field>
+
+      
+      <mat-form-field [formGroup]="carForm">
+        <mat-select placeholder="Select color" name="color" formControlName="color">
+          <mat-option *ngFor="let color of colors" [value]="color.value">
+            {{ color.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-card-actions>
+          <button mat-button type="submit" color="accent">SAVE</button>
+      </mat-card-actions>
+    
+    </form>
+  </section>
+
+</mat-card>
