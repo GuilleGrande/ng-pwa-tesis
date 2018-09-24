@@ -31,7 +31,7 @@ export class UserService {
     const user = this.auth.authState;
     const data = { displayName, photoUrl };
     console.log(data);
-    
+
     return user.updateProfile(data)
             .then(() => this.db.doc(`users/${user.uid}`).update({ displayName, photoUrl }))
             .then(() => console.log('Your profile has been updated'))
@@ -40,11 +40,11 @@ export class UserService {
 
   updateEmailData(email: string) {
     const user = this.auth.authState;
-    
+
     return user.updateEmail(email)
             .then(() => this.db.doc(`users/${user.uid}`).update({ email }))
             .then(() => console.log('Your email has been updated to ' + email))
-            .then((user) => this.auth.authState.sendEmailVerification()
+            .then(() => this.auth.authState.sendEmailVerification()
               .then(() => console.log('We sent you a verification email.'))
               .catch((error) => console.log(error.message))
               )

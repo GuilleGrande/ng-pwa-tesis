@@ -16,23 +16,27 @@ import * as firebase from 'firebase/app';
 })
 export class AuthService {
 
-  user: Observable<User>
+  user: Observable<User>;
   authState: any = null;
 
-  constructor(private afAuth: AngularFireAuth,
+  constructor(
+    private afAuth: AngularFireAuth,
     private db: AngularFirestore,
     private router: Router) {
 
     this.user = this.afAuth.authState.switchMap(user => {
       if (user) {
         return this.db.doc<User>(`users/${user.uid}`).valueChanges();
-      }
-      else {
+      } else {
+        console.log('Didnt get user authState');
         return of(null);
       }
     });
-
-    this.afAuth.authState.subscribe(data => this.authState = data);
+    this.afAuth.authState.subscribe(
+      (data) => this.authState = data,
+      (error) => console.log(error.message),
+      () => console.log('AuthState handling complete')
+      );
   }
 
   get authenticated(): boolean {
@@ -40,22 +44,22 @@ export class AuthService {
   }
 
   get currentUserId(): string {
-    return this.authenticated ? this.authState.user.uid : null;
+    return this.authenticated ? this.authState.uid : null;
   }
 
   emailSignIn(email: string, password: string) {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
-      .then(() => console.log("You have succesfully signed in"))
-      .catch(error => console.log(error.message))
+      .then(() => console.log('You have succesfully signed in'))
+      .catch(error => console.log(error.message));
   }
 
   emailSignUp(email: string, password: string) {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
-      .then((userCredential) => { this.updateUserData(userCredential.user) })
-      .then(() => console.log("Welcome, your account has been created"))
-      .then((userRef) => { this.afAuth.auth.currentUser.sendEmailVerification()
+      .then((userCredential) => this.updateUserData(userCredential.user))
+      .then(() => console.log('Welcome, your account has been created'))
+      .then(() => { this.afAuth.auth.currentUser.sendEmailVerification()
         .then(() => console.log('We sent an email verification'))
-        .catch(error => console.log(error.message))
+        .catch(error => console.log(error.message));
       })
       .catch(error => console.log('Error code : ' + error.code +
         '| Error message: ' + error.message));
@@ -69,7 +73,7 @@ export class AuthService {
 
   signOut() {
     return this.afAuth.auth.signOut()
-      .then(() => { this.router.navigate(['/']) })
+      .then(() => this.router.navigate(['/']));
   }
 
   private updateUserData(user) {
@@ -78,8 +82,8 @@ export class AuthService {
       uid: user.uid,
       email: user.email || null,
       displayName: user.displayName || null,
-      photoUrl: user.photoUrl || "https://www.gravatar.com/avatar/" + Md5.hashStr(user.uid) + "?d=identicon"
-    }
+      photoUrl: user.photoUrl || 'https://www.gravatar.com/avatar/' + Md5.hashStr(user.uid) + '?d=identicon'
+    };
     return userRef.set(data, { merge: true });
   }
 
@@ -91,7 +95,7 @@ export class AuthService {
   private socialLogin(provider) {
     return this.afAuth.auth.signInWithPopup(provider)
             .then((credential) => {
-              return this.updateUserData(credential.user)
+              return this.updateUserData(credential.user);
             })
             .catch((error) => console.log(error.message));
   }

@@ -9,10 +9,10 @@ import { UserListItemComponent } from './user-list-item/user-list-item.component
 import { UserService } from './user.service';
 
 const routes: Routes = [
-  { path: 'me', component: UserDashboardComponent, data: { title: "Dashboard" } },
-  { path: 'users', component: UserListComponent, data: { title: "Users" } },
-  { path: 'users/:id', component: UserDetailComponent, data: { title: "Profile" } }
-]
+  { path: 'me', component: UserDashboardComponent, data: { title: 'Dashboard' } },
+  { path: 'users', component: UserListComponent, data: { title: 'Users' } },
+  { path: 'users/:id', component: UserDetailComponent, data: { title: 'Profile' } }
+];
 
 @NgModule({
   imports: [

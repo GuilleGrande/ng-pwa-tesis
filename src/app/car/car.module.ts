@@ -18,9 +18,9 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   declarations: [
-    CarDashboardComponent, 
-    CarDetailComponent, 
-    CarListComponent, 
+    CarDashboardComponent,
+    CarDetailComponent,
+    CarListComponent,
     CarListItemComponent
   ],
   exports: [

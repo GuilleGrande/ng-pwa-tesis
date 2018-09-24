@@ -7,9 +7,10 @@ import { CarService } from '../car.service';
 import { Car } from '../car.model';
 import { User } from '../../user/user.model';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 export interface Year {
-  value: string,
+  value: string;
 }
 
 export interface CarColor {
@@ -31,13 +32,13 @@ export class CarDashboardComponent implements OnInit {
   uploadProgress: Observable<number>;
   downloadUrl: Observable<string>;
 
-  constructor(  
+  constructor(
     private carService: CarService,
     private auth: AuthService,
     private formBuilder: FormBuilder,
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage,
+    private router: Router
   ) {
-    this.user = this.auth.authState;
   }
 
   ngOnInit() {
@@ -52,7 +53,7 @@ export class CarDashboardComponent implements OnInit {
       make: [''],
       model: [''],
       color: ['']
-    })
+    });
   }
 
   buildYearArray() {
@@ -61,10 +62,9 @@ export class CarDashboardComponent implements OnInit {
     for (let i = currentYear; i >= 1940 ; i--) {
       this.years.push({ value:  i.toString() });
     }
-  } 
-  
-  buildColorArray() {
+  }
 
+  buildColorArray() {
     this.colors = [
       { value: 'Black'     },
       { value: 'White'     },
@@ -76,25 +76,23 @@ export class CarDashboardComponent implements OnInit {
       { value: 'Grey'      },
       { value: 'Silver'    },
     ];
-
-    console.log(this.colors);
   }
 
   saveCar() {
     const formData: Car = {
-      owner: this.user.uid,
+      owner: this.auth.currentUserId,
       year: this.carForm.get('year').value,
       make: this.carForm.get('make').value,
       model: this.carForm.get('model').value,
       color: this.carForm.get('color').value,
       image: this.imageUrl || null,
       appointmentCount: 0
-    }
+    };
 
     this.carService.create(formData);
     this.carForm.reset();
     this.imageUrl = '';
-
+    this.router.navigate(['/cars']);
   }
 
   uploadCarPhoto(event) {
@@ -103,17 +101,16 @@ export class CarDashboardComponent implements OnInit {
 
     if (file.type.split('/')[0] !== 'image') {
       return alert('Only images allowed');
-      
-    }
-    else {
+    } else {
       const task = this.storage.upload(path, file);
       const fileRef = this.storage.ref(path);
 
-      task.snapshotChanges().subscribe(() => 
+      task.snapshotChanges().subscribe(() =>
         fileRef.getDownloadURL().subscribe((url) =>
             this.imageUrl = url));
-      
+
       this.uploadProgress = task.percentageChanges();
+      console.log('Image uploaded!');
 
     }
 
