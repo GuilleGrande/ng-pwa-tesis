@@ -1,7 +1,7 @@
 <main *ngFor="let car of cars | async">
   <mat-card>
     <img src="{{car.image}}" alt="No image available" [hidden]="car.image == null">
-    <mat-card-title>Make</mat-card-title>
+    <mat-card-title class="first-title">Make</mat-card-title>
     <mat-card-subtitle>{{car.make}}</mat-card-subtitle>
     <mat-card-title>Model</mat-card-title>
     <mat-card-subtitle>{{car.model}}</mat-card-subtitle>

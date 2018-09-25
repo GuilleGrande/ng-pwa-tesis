@@ -14,9 +14,11 @@ export class CarListComponent implements OnInit {
 
   cars: Observable<Car[]>;
 
-  constructor(private carService: CarService) {}
+  constructor(
+    private carService: CarService,
+    private auth: AuthService) {}
 
   ngOnInit() {
-    this.cars = this.carService.getCars();
+    this.auth.user.subscribe(() => this.cars = this.carService.getCars());
   }
 }

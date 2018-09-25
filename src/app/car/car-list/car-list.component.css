@@ -9,3 +9,6 @@ mat-form-field {
 img {
     width: 100%;
 }
+mat-card-title.first-title {
+    margin-top: 16px;
+}
