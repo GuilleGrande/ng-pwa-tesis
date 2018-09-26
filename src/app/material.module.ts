@@ -3,9 +3,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
 import { NgModule } from '@angular/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTabsModule } from '@angular/material/tabs';
 
 
 @NgModule({
@@ -14,7 +16,9 @@ import { MatSelectModule } from '@angular/material/select';
     MatCardModule,
     MatIconModule,
     MatInputModule,
+    MatMenuModule,
     MatProgressBarModule,
+    MatTabsModule,
     MatToolbarModule,
     MatSelectModule
   ],
@@ -23,7 +27,9 @@ import { MatSelectModule } from '@angular/material/select';
     MatCardModule,
     MatIconModule,
     MatInputModule,
+    MatMenuModule,
     MatProgressBarModule,
+    MatTabsModule,
     MatToolbarModule,
     MatSelectModule
   ]

@@ -4,6 +4,8 @@ import { MaterialModule } from '../material.module';
 import { NgModule } from '@angular/core';
 import { UploadComponent } from './upload/upload.component';
 import { UploadService } from './upload/upload.service';
+import { NavbarComponent } from './navbar/navbar.component';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -12,15 +14,17 @@ import { UploadService } from './upload/upload.service';
     FormsModule,
     MaterialModule,
     ReactiveFormsModule,
+    RouterModule
   ],
   exports: [
     CommonModule,
     FormsModule,
     MaterialModule,
     ReactiveFormsModule,
-    UploadComponent
+    UploadComponent,
+    NavbarComponent
   ],
-  declarations: [UploadComponent],
+  declarations: [UploadComponent, NavbarComponent],
   providers: [UploadService]
 })
 export class SharedModule { }

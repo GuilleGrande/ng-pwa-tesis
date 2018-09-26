@@ -1,0 +1,29 @@
+<mat-toolbar>
+  <mat-toolbar-row>
+    <span class="appTitle">{{ appTitle }}</span>
+    <span class="spacer"></span>
+
+    <button mat-button routerLink="/signin" *ngIf="!auth.authenticated">Sign in</button>
+    <button mat-button routerLink="/signup" *ngIf="!auth.authenticated">Sign up</button>
+
+    <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="auth.authenticated">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <span routerLink="/me">Profile</span>
+      </button>
+      <button mat-menu-item (click)="auth.signOut()">
+        <span routerLink="/signin">Sign out</span>
+      </button>
+    </mat-menu>
+
+  </mat-toolbar-row>
+  </mat-toolbar>
+  <mat-tab-group>
+      <mat-tab label="Services"></mat-tab>
+      <mat-tab label="Cars" routerLink="/cars"></mat-tab>
+      <mat-tab label="Appointments"></mat-tab>
+  </mat-tab-group>
+
