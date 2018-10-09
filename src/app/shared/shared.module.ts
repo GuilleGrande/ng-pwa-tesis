@@ -5,8 +5,16 @@ import { NgModule } from '@angular/core';
 import { UploadComponent } from './upload/upload.component';
 import { UploadService } from './upload/upload.service';
 import { NavbarComponent } from './navbar/navbar.component';
-import { RouterModule } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
+import { CarServiceDashboardComponent } from '../car-service/car-service-dashboard/car-service-dashboard.component';
+import { CarListComponent } from '../car/car-list/car-list.component';
+import { AppointmentDashboardComponent } from '../appointment/appointment-dashboard/appointment-dashboard.component';
 
+const routes: Routes = [
+  { path: 'services', component: CarServiceDashboardComponent, data: { title: 'Services' } },
+  { path: 'cars', component: CarListComponent, data: { title: 'Cars' } },
+  { path: 'appointments', component: AppointmentDashboardComponent, data: { title: 'Appointments' } }
+];
 
 @NgModule({
   imports: [
@@ -14,7 +22,7 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     MaterialModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule.forChild(routes),
   ],
   exports: [
     CommonModule,
@@ -22,7 +30,7 @@ import { RouterModule } from '@angular/router';
     MaterialModule,
     ReactiveFormsModule,
     UploadComponent,
-    NavbarComponent
+    NavbarComponent,
   ],
   declarations: [UploadComponent, NavbarComponent],
   providers: [UploadService]

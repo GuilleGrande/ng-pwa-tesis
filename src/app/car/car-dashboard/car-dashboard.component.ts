@@ -111,8 +111,6 @@ export class CarDashboardComponent implements OnInit {
 
       this.uploadProgress = task.percentageChanges();
       console.log('Image uploaded!');
-
     }
-
   }
 }

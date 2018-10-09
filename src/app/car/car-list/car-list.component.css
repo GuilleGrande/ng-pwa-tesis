@@ -1,6 +1,10 @@
+main {
+    margin: 0.5em auto;
+    max-width: 500px;
+}
 mat-card {
-    margin: 0.5em;
-    max-width: 600px;
+    margin: 0.5em auto;
+    max-width: 500px;
     margin: 16px;
 }
 mat-form-field {

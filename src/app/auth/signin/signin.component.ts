@@ -45,7 +45,7 @@ export class SigninComponent implements OnInit {
     return this.auth.emailSignIn(this.email.value, this.password.value)
             .then(user => {
               if (this.signInForm.valid) {
-                this.router.navigate(['/me']);
+                this.router.navigate(['/services']);
               }
             });
   }

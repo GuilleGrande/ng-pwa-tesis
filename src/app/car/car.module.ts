@@ -10,7 +10,7 @@ import { SharedModule } from '../shared/shared.module';
 const routes: Routes = [
   { path: 'cars', component: CarListComponent },
   { path: 'cars/:id', component: CarDetailComponent }
-]
+];
 
 @NgModule({
   imports: [

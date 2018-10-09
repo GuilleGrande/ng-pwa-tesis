@@ -10,6 +10,8 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { CarModule } from './car/car.module';
 import { SharedModule } from './shared/shared.module';
+import { CarServicesModule } from './car-service/car-service.module';
+import { AppointmentModule } from './appointment/appointment.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,7 +23,9 @@ import { SharedModule } from './shared/shared.module';
     CoreModule,
     MaterialModule,
     CarModule,
-    SharedModule
+    SharedModule,
+    CarServicesModule,
+    AppointmentModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,6 +1,7 @@
 <ng-container *ngIf="user">
 
   <div [hidden]="editing">
+
     <div class="hero">
 
       <div class="photoUrl" [ngStyle]="{ 'background-image': 'url(' + user.photoUrl + ')' }">
@@ -35,7 +36,7 @@
           <mat-hint align="end">Save</mat-hint>
       </mat-form-field>
       <mat-card-actions>
-          <button mat-button (click)="editing=false" >DONE</button>
+          <button mat-button (click)="editing=false">DONE</button>
       </mat-card-actions>
     </mat-card>
   </div>

@@ -1,0 +1,13 @@
+<mat-grid-list cols="2" rowHeight="1:1" [gutterSize]="4">
+  <mat-grid-tile
+      *ngFor="let service of carService"
+      [colspan]="1"
+      [rowspan]="1"
+      [style.background]="service.color">
+
+      <mat-grid-tile-footer>
+          {{ service.name }}
+      </mat-grid-tile-footer>
+
+  </mat-grid-tile>
+</mat-grid-list>

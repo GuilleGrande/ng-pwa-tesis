@@ -1,2 +1,27 @@
-<app-navbar></app-navbar>
+<mat-toolbar>
+    <mat-toolbar-row>
+        <span class="appTitle">{{ appTitle }}</span>
+        <span class="spacer"></span>
+
+        <button mat-button routerLink="/signin" *ngIf="!auth.authenticated">Sign in</button>
+        <button mat-button routerLink="/signup" *ngIf="!auth.authenticated">Sign up</button>
+
+        <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="auth.authenticated">
+        <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+            <span routerLink="/me">Profile</span>
+        </button>
+        <button mat-menu-item (click)="auth.signOut()">
+            <span routerLink="/signin">Sign out</span>
+        </button>
+        </mat-menu>
+
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<app-navbar *ngIf="auth.authenticated"></app-navbar>
+
 <router-outlet></router-outlet>

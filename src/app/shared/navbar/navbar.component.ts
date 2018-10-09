@@ -8,7 +8,11 @@ import { AuthService } from '../../core/auth.service';
 })
 export class NavbarComponent implements OnInit {
 
-  appTitle = 'Frisbid Autoshop';
+  navLinks = [
+    { path: 'services', label: 'Services'},
+    { path: 'cars', label: 'Cars'},
+    { path: 'appointments', label: 'Appointments'},
+  ];
 
   constructor(public auth: AuthService) { }
 
