@@ -1,3 +1,14 @@
-<p>
-  services-detail works!
-</p>
+<mat-card *ngIf="carService">
+  <mat-card-header>
+    <mat-card-title><h1>{{ carService.title }}</h1></mat-card-title>
+  </mat-card-header>
+  <img mat-card-image [src]="carService.img" alt="{{carService.title}}">
+  <mat-card-content>
+    <p>
+      {{ carService.description}}
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button>BOOK APPOINTMENT</button>
+  </mat-card-actions>
+</mat-card>

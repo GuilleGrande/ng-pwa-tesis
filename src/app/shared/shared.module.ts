@@ -11,7 +11,7 @@ import { CarListComponent } from '../car/car-list/car-list.component';
 import { AppointmentDashboardComponent } from '../appointment/appointment-dashboard/appointment-dashboard.component';
 
 const routes: Routes = [
-  { path: 'services', component: CarServiceDashboardComponent, data: { title: 'Services' } },
+  { path: 'service', component: CarServiceDashboardComponent, data: { title: 'Services' } },
   { path: 'cars', component: CarListComponent, data: { title: 'Cars' } },
   { path: 'appointments', component: AppointmentDashboardComponent, data: { title: 'Appointments' } }
 ];

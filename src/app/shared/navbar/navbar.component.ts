@@ -9,7 +9,7 @@ import { AuthService } from '../../core/auth.service';
 export class NavbarComponent implements OnInit {
 
   navLinks = [
-    { path: 'services', label: 'Services'},
+    { path: 'car-service', label: 'Services'},
     { path: 'cars', label: 'Cars'},
     { path: 'appointments', label: 'Appointments'},
   ];

@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../core/auth.service';
-
-export interface CarService {
-  name: string;
-  color: string;
-}
+import { CarServiceService } from '../car-service.service';
+import { CarService } from '../car-service.model';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-car-service-dashboard',
@@ -13,25 +11,17 @@ export interface CarService {
 })
 export class CarServiceDashboardComponent implements OnInit {
 
-  carService: CarService[];
+  carServices: Observable<CarService[]>;
 
-  constructor(private auth: AuthService, ) { }
+  constructor(
+    private auth: AuthService,
+    private carServiceService: CarServiceService ) { }
 
   ngOnInit() {
-    this.buildCarServiceGrid();
+    this.getCarServices();
   }
 
-  buildCarServiceGrid() {
-    this.carService = [
-      { name: 'Oil change', color: 'lightgrey' },
-      { name: 'Exhaust & Mufflers', color: 'lightgrey' },
-      { name: 'Brakes', color: 'lightgrey' },
-      { name: 'Tires & Wheels', color: 'lightgrey' },
-      { name: 'A/C', color: 'lightgrey' },
-      { name: 'Steering & Suspension', color: 'lightgrey' },
-      { name: 'Battery', color: 'lightgrey' },
-      { name: 'CV Joints & Driveshafts', color: 'lightgrey' }
-    ];
+  getCarServices() {
+    this.carServices = this.carServiceService.getCarServices();
   }
-
 }

@@ -1,13 +1,14 @@
 <mat-grid-list cols="2" rowHeight="1:1" [gutterSize]="4">
   <mat-grid-tile
-      *ngFor="let service of carService"
+      *ngFor="let service of carServices | async"
       [colspan]="1"
       [rowspan]="1"
-      [style.background]="service.color">
+      routerLink="{{ service.name }}">
+      <img [src]="service.img" alt="{{ service.title }}" routerLink="{{ service.name }}">
 
       <mat-grid-tile-footer>
-          {{ service.name }}
+          {{ service.title }}
       </mat-grid-tile-footer>
 
-  </mat-grid-tile>
+  </mat-grid-tile> 
 </mat-grid-list>
