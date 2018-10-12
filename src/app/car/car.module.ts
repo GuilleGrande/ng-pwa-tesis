@@ -1,15 +1,14 @@
 import { CarDashboardComponent } from './car-dashboard/car-dashboard.component';
-import { CarDetailComponent } from './car-detail/car-detail.component';
 import { CarListComponent } from './car-list/car-list.component';
-import { CarListItemComponent } from './car-list-item/car-list-item.component';
 import { CarService } from './car.service';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
+import { NewCarDialogComponent } from './new-car-dialog/new-car-dialog.component';
 
 const routes: Routes = [
   { path: 'cars', component: CarListComponent },
-  { path: 'cars/:id', component: CarDetailComponent }
+  { path: 'new-car', component: NewCarDialogComponent }
 ];
 
 @NgModule({
@@ -19,9 +18,8 @@ const routes: Routes = [
   ],
   declarations: [
     CarDashboardComponent,
-    CarDetailComponent,
     CarListComponent,
-    CarListItemComponent
+    NewCarDialogComponent
   ],
   exports: [
     CarDashboardComponent

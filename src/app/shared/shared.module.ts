@@ -9,6 +9,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { CarServiceDashboardComponent } from '../car-service/car-service-dashboard/car-service-dashboard.component';
 import { CarListComponent } from '../car/car-list/car-list.component';
 import { AppointmentDashboardComponent } from '../appointment/appointment-dashboard/appointment-dashboard.component';
+import { FabComponent } from './fab/fab.component';
+import { CarModule } from '../car/car.module';
 
 const routes: Routes = [
   { path: 'service', component: CarServiceDashboardComponent, data: { title: 'Services' } },
@@ -31,8 +33,9 @@ const routes: Routes = [
     ReactiveFormsModule,
     UploadComponent,
     NavbarComponent,
+    FabComponent
   ],
-  declarations: [UploadComponent, NavbarComponent],
+  declarations: [UploadComponent, NavbarComponent, FabComponent],
   providers: [UploadService]
 })
 export class SharedModule { }

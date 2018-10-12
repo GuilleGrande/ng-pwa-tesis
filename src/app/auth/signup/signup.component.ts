@@ -11,7 +11,7 @@ import { SharedModule } from '../../shared/shared.module';
   styleUrls: ['./signup.component.css', '../auth.styles.css']
 })
 export class SignupComponent implements OnInit {
-  
+
   signUpForm: FormGroup;
   hide = true;
 
@@ -27,7 +27,7 @@ export class SignupComponent implements OnInit {
         Validators.minLength(6),
         Validators.maxLength(25)
       ]]
-    })
+    });
   }
 
   ngOnInit() {
@@ -45,8 +45,8 @@ export class SignupComponent implements OnInit {
     return this.auth.emailSignUp(this.email.value, this.password.value)
             .then(user => {
               if (this.signUpForm.valid) {
-                this.router.navigate(['/'])
+                this.router.navigate(['/']);
               }
-            })
+            });
   }
 }
