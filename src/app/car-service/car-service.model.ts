@@ -1,4 +1,4 @@
-export class CarService {
+export class CarServiceModel {
     id?: string;
     name: string;
     title: string;

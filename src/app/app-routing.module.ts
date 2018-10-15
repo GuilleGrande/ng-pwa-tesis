@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   { path: '', loadChildren: './auth/auth.module#AuthModule' },
-  { path: '', redirectTo: '/car-services', pathMatch: 'full' }
+  { path: '', redirectTo: '/car-service', pathMatch: 'full' }
 ];
 
 @NgModule({

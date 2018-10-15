@@ -5,17 +5,34 @@ import { AppointmentDetailComponent } from './appointment-detail/appointment-det
 import { AppointmentListComponent } from './appointment-list/appointment-list.component';
 import { AppointmentListItemComponent } from './appointment-list-item/appointment-list-item.component';
 import { SharedModule } from '../shared/shared.module';
+import { NewAppointmentDialogComponent } from './new-appointment-dialog/new-appointment-dialog.component';
+import { Routes, RouterModule } from '@angular/router';
+import { CarService } from '../car/car.service';
+import { CarServiceService } from '../car-service/car-service.service';
+import { AppointmentService } from './appointment.service';
+
+const routes: Routes = [
+  { path: 'appointments/:userId', component: AppointmentDashboardComponent },
+  { path: 'appointments/:userId/:id', component: AppointmentDetailComponent },
+  { path: 'new-appointment-dialog', component: NewAppointmentDialogComponent }
+];
 
 @NgModule({
   imports: [
-    CommonModule,
-    SharedModule
+    SharedModule,
+    RouterModule.forChild(routes)
   ],
   declarations: [
     AppointmentDashboardComponent,
     AppointmentDetailComponent,
     AppointmentListComponent,
-    AppointmentListItemComponent
+    AppointmentListItemComponent,
+    NewAppointmentDialogComponent
+  ],
+  providers: [
+    CarService,
+    CarServiceService,
+    AppointmentService
   ]
 })
 export class AppointmentModule { }

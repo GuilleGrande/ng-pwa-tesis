@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../core/auth.service';
 import { CarServiceService } from '../car-service.service';
-import { CarService } from '../car-service.model';
+import { CarServiceModel } from '../car-service.model';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
@@ -11,7 +11,7 @@ import { Observable } from 'rxjs/Observable';
 })
 export class CarServiceDashboardComponent implements OnInit {
 
-  carServices: Observable<CarService[]>;
+  carServices: Observable<CarServiceModel[]>;
 
   constructor(
     private auth: AuthService,

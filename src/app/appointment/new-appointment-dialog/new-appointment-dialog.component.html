@@ -1,0 +1,55 @@
+<mat-card>
+
+  <mat-card-title>
+    Create new appointment
+  </mat-card-title>
+
+  <section>
+    <form [formGroup]="appointmentForm" (ngSubmit)="saveAppointment()">
+
+      <mat-form-field [formGroup]="appointmentForm">
+          <mat-select placeholder="Select service" name="carService" formControlName="carService">
+            <mat-option *ngFor="let service of carServices" [value]="service.id">
+              {{ service.title }}
+            </mat-option>
+          </mat-select>
+      </mat-form-field>
+
+      <br>
+
+      <mat-form-field [formGroup]="appointmentForm">
+        <mat-select placeholder="Select car" name="car" formControlName="car">
+          <mat-option *ngFor="let car of cars" [value]="car.id">
+            {{ car.model }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <br>
+      
+      <mat-form-field [formGroup]="appointmentForm">
+        <input matInput [min]="minDate" [matDatepicker]="picker" placeholder="Choose a date" name="startDate" formControlName="startDate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      
+      <br>
+
+      <mat-form-field [formGroup]="appointmentForm">
+        <mat-select placeholder="Select time" name="startTime" formControlName="startTime">
+          <mat-option *ngFor="let time of times" [value]="time.hour">
+            {{ time.hour }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <br>
+
+      <mat-card-actions>
+          <button mat-button type="submit" color="accent">SAVE</button>
+      </mat-card-actions>
+    
+    </form>
+  </section>
+
+</mat-card>

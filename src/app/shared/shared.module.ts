@@ -10,7 +10,6 @@ import { CarServiceDashboardComponent } from '../car-service/car-service-dashboa
 import { CarListComponent } from '../car/car-list/car-list.component';
 import { AppointmentDashboardComponent } from '../appointment/appointment-dashboard/appointment-dashboard.component';
 import { FabComponent } from './fab/fab.component';
-import { CarModule } from '../car/car.module';
 
 const routes: Routes = [
   { path: 'service', component: CarServiceDashboardComponent, data: { title: 'Services' } },

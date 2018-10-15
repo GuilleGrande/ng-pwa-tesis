@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { map } from 'rxjs/operators';
-import { CarService } from './car-service.model';
+import { CarServiceModel } from './car-service.model';
+import { AuthService } from '../core/auth.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +13,11 @@ export class CarServiceService {
   carServiceCollection: AngularFirestoreCollection<any>;
   carServiceDocument: AngularFirestoreDocument<any>;
 
-  constructor(private db: AngularFirestore) { }
+  constructor(
+    private db: AngularFirestore,
+    ) { }
 
-  getCarServices() {
+  getCarServices(): Observable<CarServiceModel[]> {
     this.carServiceCollection = this.db.collection('car-service');
     return this.carServiceCollection.valueChanges();
   }
