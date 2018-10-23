@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Car } from '../../car/car.model';
 import { CarService } from '../../car/car.service';
 import { CarServiceService } from '../../car-service/car-service.service';
 import { CarServiceModel } from '../../car-service/car-service.model';
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from '../../core/auth.service';
+import { Appointment } from '../appointment.model';
+import { Router } from '@angular/router';
+import { AppointmentService } from '../appointment.service';
+
 
 export interface Time {
   hour: string;
@@ -22,15 +26,17 @@ export class NewAppointmentDialogComponent implements OnInit {
   appointmentForm: FormGroup;
   minDate = new Date().getDate();
   carServices: CarServiceModel[];
-  cars: Car[];
+  cars: Observable<Car[]>;
   times: Time[];
 
   constructor(
     public dialogRef: MatDialogRef<NewAppointmentDialogComponent>,
     private formBuilder: FormBuilder,
+    private appointmentService: AppointmentService,
     private carServiceService: CarServiceService,
     private carService: CarService,
-    private auth: AuthService
+    private auth: AuthService,
+    private router: Router
     ) { }
 
   ngOnInit() {
@@ -44,18 +50,19 @@ export class NewAppointmentDialogComponent implements OnInit {
     this.appointmentForm = this.formBuilder.group({
       carService:  [''],
       car: [''],
-      startDate: [''],
+      startDate: new FormControl(new Date()),
       startTime: ['']
     });
   }
 
   buildCarArray() {
-    // this.auth.user.subscribe(() => this.cars = this.carService.getCars());
-    this.carService.getCars().subscribe((cars) => this.cars = cars)
+    this.auth.user.subscribe(() => this.cars = this.carService.getCars());
   }
 
   buildCarServiceArray() {
-    this.carServiceService.getCarServices().subscribe((carServices) => this.carServices = carServices);
+    console.log('From buildCarServiceArray:');
+    this.carServiceService.getCarServices().subscribe((carServices) =>
+      this.carServices = carServices);
   }
 
   buildTimeSlots() {
@@ -83,7 +90,22 @@ export class NewAppointmentDialogComponent implements OnInit {
   }
 
   saveAppointment() {
-    return;
+    const formData: Appointment = {
+      userId: this.auth.currentUserId,
+      car: this.appointmentForm.get('car').value,
+      service: this.appointmentForm.get('carService').value,
+      startDate: this.appointmentForm.get('startDate').value,
+      startTime: this.appointmentForm.get('startTime').value,
+      finishDate: null,
+      finishTime: null,
+      status: 'Scheduled'
+    };
+
+    this.appointmentService.create(formData);
+    this.appointmentForm.reset();
+    console.log('Before router to appointents');
+    this.router.navigate(['/appointments']);
+    this.onNoClick();
   }
 
   onNoClick(): void {

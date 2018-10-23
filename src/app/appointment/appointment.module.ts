@@ -12,7 +12,7 @@ import { CarServiceService } from '../car-service/car-service.service';
 import { AppointmentService } from './appointment.service';
 
 const routes: Routes = [
-  { path: 'appointments/:userId', component: AppointmentDashboardComponent },
+  { path: 'appointments', component: AppointmentListComponent },
   { path: 'appointments/:userId/:id', component: AppointmentDetailComponent },
   { path: 'new-appointment-dialog', component: NewAppointmentDialogComponent }
 ];

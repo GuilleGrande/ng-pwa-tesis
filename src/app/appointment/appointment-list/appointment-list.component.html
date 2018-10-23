@@ -1,3 +1,18 @@
-<p>
-  appointment-list works!
-</p>
+<main *ngFor="let appointment of appointments | async">
+  <mat-card>
+    <mat-card-title class="first-title">Apointment Id</mat-card-title>
+    <mat-card-subtitle>{{appointment.id}}</mat-card-subtitle>
+    <mat-card-title>Service</mat-card-title>
+    <mat-card-subtitle>{{appointment.service}}</mat-card-subtitle>
+    <mat-card-title>Car</mat-card-title>
+    <mat-card-subtitle>{{appointment.car}}</mat-card-subtitle>
+    <mat-card-title>Date</mat-card-title>
+    <mat-card-subtitle>{{ appointment.startDate }}</mat-card-subtitle>
+    <mat-card-title>Time</mat-card-title>
+    <mat-card-subtitle>{{appointment.startTime}}</mat-card-subtitle>
+    <mat-card-title>Status</mat-card-title>
+    <mat-card-subtitle>{{appointment.status}}</mat-card-subtitle>
+  </mat-card>
+</main>
+
+<app-fab></app-fab>

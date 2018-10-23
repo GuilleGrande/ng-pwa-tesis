@@ -20,7 +20,6 @@ export class CarService {
   carsCollection: AngularFirestoreCollection<Car>;
 
   constructor(
-    private firebase: AngularFireAuth,
     private db: AngularFirestore,
     private auth: AuthService
   ) {
@@ -55,4 +54,5 @@ export class CarService {
       }))
     );
   }
+
 }

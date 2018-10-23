@@ -1,8 +1,8 @@
 export class Appointment {
     id?: string;
     userId: string;
-    carId: string;
-    serviceId: string;
+    car: string;
+    service: string;
     startDate: Date;
     startTime: string;
     finishDate: Date;

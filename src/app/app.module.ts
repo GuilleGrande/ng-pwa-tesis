@@ -6,12 +6,12 @@ import { CoreModule } from './core/core.module';
 import { environment } from '../environments/environment';
 import { MaterialModule } from './/material.module';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { CarModule } from './car/car.module';
 import { SharedModule } from './shared/shared.module';
 import { CarServicesModule } from './car-service/car-service.module';
 import { AppointmentModule } from './appointment/appointment.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,7 +25,8 @@ import { AppointmentModule } from './appointment/appointment.module';
     CarModule,
     SharedModule,
     CarServicesModule,
-    AppointmentModule
+    AppointmentModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent]

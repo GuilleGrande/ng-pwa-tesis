@@ -9,7 +9,7 @@
 
       <mat-form-field [formGroup]="appointmentForm">
           <mat-select placeholder="Select service" name="carService" formControlName="carService">
-            <mat-option *ngFor="let service of carServices" [value]="service.id">
+            <mat-option *ngFor="let service of carServices" [value]="service.title">
               {{ service.title }}
             </mat-option>
           </mat-select>
@@ -19,7 +19,7 @@
 
       <mat-form-field [formGroup]="appointmentForm">
         <mat-select placeholder="Select car" name="car" formControlName="car">
-          <mat-option *ngFor="let car of cars" [value]="car.id">
+          <mat-option *ngFor="let car of cars | async" [value]="car.model">
             {{ car.model }}
           </mat-option>
         </mat-select>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CarServiceService } from '../car-service.service';
 import { CarService } from '../../car/car.service';
 
@@ -14,7 +14,8 @@ export class CarServiceDetailComponent implements OnInit {
 
   constructor(
     private router: ActivatedRoute,
-    private carServiceService: CarServiceService
+    private carServiceService: CarServiceService,
+    private routing: Router
   ) { }
 
   ngOnInit() {
@@ -25,6 +26,10 @@ export class CarServiceDetailComponent implements OnInit {
     const carServiceName = this.router.snapshot.paramMap.get('name');
     this.carServiceService.getCarService(carServiceName).
       subscribe((carService) => this.carService = carService);
+  }
+
+  bookApointmentRedirect() {
+    this.routing.navigate(['/appointments']);
   }
 
 }
