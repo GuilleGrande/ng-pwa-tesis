@@ -25,7 +25,7 @@ export class AppointmentService {
     this.auth.user.subscribe((user) => {
       if (user) {
         this.user = user;
-        console.log(user.uid);
+        console.log('[Appn Service][Sub to user] ' + user.uid);
         this.getAppointmentsCollection(user.uid);
       } else {
         console.log('User not found');

@@ -50,7 +50,7 @@ export class NewAppointmentDialogComponent implements OnInit {
     this.appointmentForm = this.formBuilder.group({
       carService:  [''],
       car: [''],
-      startDate: new FormControl(new Date()),
+      startDate: new FormControl(new Date().toDateString()),
       startTime: ['']
     });
   }
@@ -94,7 +94,7 @@ export class NewAppointmentDialogComponent implements OnInit {
       userId: this.auth.currentUserId,
       car: this.appointmentForm.get('car').value,
       service: this.appointmentForm.get('carService').value,
-      startDate: this.appointmentForm.get('startDate').value,
+      startDate: this.appointmentForm.get('startDate').value.toDateString(),
       startTime: this.appointmentForm.get('startTime').value,
       finishDate: null,
       finishTime: null,

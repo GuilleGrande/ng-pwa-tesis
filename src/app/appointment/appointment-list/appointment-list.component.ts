@@ -20,7 +20,7 @@ export class AppointmentListComponent implements OnInit {
 
   ngOnInit() {
     this.auth.user.subscribe(() => this.appointments = this.appointmentService.getAppointments());
-    console.log('OnInit Car List component');
+    console.log('OnInit Appointment List component');
     console.log(this.appointments);
   }
 
