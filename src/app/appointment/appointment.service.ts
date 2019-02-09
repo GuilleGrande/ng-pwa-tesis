@@ -37,8 +37,6 @@ export class AppointmentService {
     console.log('From get appointmentsCollection');
     this.appointmentsCollection = this.db.collection('appointments',
       (ref) => ref.where('userId', '==', userId));
-    console.log(this.appointmentsCollection);
-    return this.appointmentsCollection;
   }
 
   create(data: Appointment) {

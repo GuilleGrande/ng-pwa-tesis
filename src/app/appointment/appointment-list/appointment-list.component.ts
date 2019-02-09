@@ -3,6 +3,7 @@ import { AppointmentService } from '../appointment.service';
 import { AuthService } from '../../core/auth.service';
 import { Observable } from 'rxjs';
 import { Appointment } from '../appointment.model';
+import { AngularFirestoreCollection } from 'angularfire2/firestore';
 
 @Component({
   selector: 'app-appointment-list',
@@ -11,6 +12,7 @@ import { Appointment } from '../appointment.model';
 })
 export class AppointmentListComponent implements OnInit {
 
+  private appointmentsCollection: AngularFirestoreCollection<Appointment>;
   appointments: Observable<Appointment[]>;
 
   constructor(
@@ -19,9 +21,12 @@ export class AppointmentListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.auth.user.subscribe(() => this.appointments = this.appointmentService.getAppointments());
-    console.log('OnInit Appointment List component');
+    this.appointmentService.subscribeToUser();
+    this.getUserAppointments();
     console.log(this.appointments);
   }
 
+  getUserAppointments() {
+    this.appointments = this.appointmentService.appointmentsCollection.valueChanges();
+  }
 }
