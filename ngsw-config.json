@@ -9,21 +9,40 @@
           "/favicon.ico",
           "/index.html",
           "/*.css",
-          "/*.js",
-          "https://fonts.googleapis.com/icon?family=Material+Icons",
-          "https://fonts.googleapis.com/css?family=Roboto:300,400,500"
+          "/*.js"
+        ],
+        "urls": [
+          "https://fonts.googleapis.com/css?family=Roboto:300,400,500",
+          "https://fonts.googleapis.com/icon?family=Material+Icons"
         ]
       }
-    }, {
+    }, 
+    {
       "name": "assets",
       "installMode": "lazy",
       "updateMode": "prefetch",
       "resources": {
         "files": [
-          "/assets/**",
-          "https://fonts.googleapis.com/icon?family=Material+Icons",
-          "https://fonts.googleapis.com/css?family=Roboto:300,400,500"
+          "/assets/**"
         ]
+      }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "dynamic",
+      "urls":[
+        "/car-service",
+        "/car-service/**",
+        "/cars",
+        "/appointments",
+        "/me"
+      ],
+      "cacheConfig": {
+        "maxSize": 5,
+        "maxAge": "3h",
+        "timeout": "10s",
+        "strategy": "performance"
       }
     }
   ]
