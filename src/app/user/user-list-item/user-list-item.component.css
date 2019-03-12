@@ -1,26 +1,10 @@
-.user-title {
-    margin-left: 1em;
+.user-card {
+  width: 400px;
 }
-mat-card {
-    margin: 10px;
-    width: 300px;
-}
-mat-card-content, mat-card-actions {
-    margin: 1em;
-}
-.photo {
-    border-radius: 50%;
-    border: 2px solid white;
-    height: 150px;
-    width: 150px;
-    background-size: cover;
-    background-position: center;
-    background-blend-mode: multiply;
+
+.avatar {
     vertical-align: middle;
-    text-align: center;
-    color: transparent;
-    transition: all .3s ease;
-    text-decoration: none;
-    float: right;
-    margin-right: 16px;
-}
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }

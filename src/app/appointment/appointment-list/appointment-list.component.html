@@ -1,4 +1,4 @@
-<main *ngFor="let appointment of appointments | async">
+<main *ngFor="let appointment of appointments | async ">
   <mat-card>
     <mat-card-content>
       <mat-card-title>Service</mat-card-title>
@@ -6,7 +6,7 @@
       <mat-card-title>Car</mat-card-title>
       <mat-card-subtitle>{{appointment.car}}</mat-card-subtitle>
       <mat-card-title>Date</mat-card-title>
-      <mat-card-subtitle>{{ appointment.startDate }}</mat-card-subtitle>
+      <mat-card-subtitle>{{ appointment.startDate | date:'mediumDate' }}</mat-card-subtitle>
       <mat-card-title>Time</mat-card-title>
       <mat-card-subtitle>{{appointment.startTime}}</mat-card-subtitle>
       <p>

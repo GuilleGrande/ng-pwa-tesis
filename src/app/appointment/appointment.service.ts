@@ -13,36 +13,57 @@ export class AppointmentService {
 
   user: User;
   appointmentsCollection: AngularFirestoreCollection<Appointment>;
+  allAppointments: Observable<Appointment[]>;
 
   constructor(
     private db: AngularFirestore,
     private auth: AuthService
   ) {
+    this.auth.user.subscribe(user => {
+      this.user = user;
+    });
     this.subscribeToUser();
   }
 
   subscribeToUser() {
-    this.auth.user.subscribe((user) => {
+    return this.auth.user.subscribe((user) => {
       if (user) {
         this.user = user;
         console.log('[Appn Service][Sub to user] ' + user.uid);
-        this.getAppointmentsCollection(user.uid);
+        this.gimmieAppointmentsCollection(user.uid);
       } else {
         console.log('User not found');
       }
     });
   }
 
-  getAppointmentsCollection(userId) {
+  getAllAppointments() {
+    return this.db.collection('appointments',
+      (ref) => {
+        const query: firebase.firestore.CollectionReference | firebase.firestore.Query = ref;
+        query.where('status', '==', 'Scheduled');
+        return query;
+      }).valueChanges();
+  }
+
+  getAppointmentsCollection(userId: string) {
     console.log('From get appointmentsCollection');
+    return this.db.collection('appointments',
+      (ref) => ref.where('clientId', '==', userId)).valueChanges();
+  }
+
+  gimmieAppointmentsCollection(userId: string) {
     this.appointmentsCollection = this.db.collection('appointments',
-      (ref) => ref.where('userId', '==', userId));
+      (ref) => ref.where('clientId', '==', userId));
   }
 
   create(data: Appointment) {
-    return this.appointmentsCollection.add(data)
-      .then(success => console.log(success))
-      .catch(error => console.log(error.message));
+    try {
+      const success = this.appointmentsCollection.add(data);
+      return console.log(success);
+    } catch (error) {
+      return console.log(error.message);
+    }
   }
 
   getAppointments(): Observable<Appointment[]> {

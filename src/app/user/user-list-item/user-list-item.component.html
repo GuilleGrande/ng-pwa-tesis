@@ -1,14 +1,21 @@
-<div *ngIf="user">
-  <mat-card routerLink="{{ user.uid }}">
-    <mat-card-header>
-        <img class="photo" [src]="user.photoUrl || '//:0'" alt="{{ user.displayName }}">
-        <div class="user-title">
-          <mat-card-title>{{ user.displayName }}</mat-card-title>
-          <mat-card-subtitle>{{ user.email }}</mat-card-subtitle>
-        </div>
-    </mat-card-header>
-    <mat-card-content>
-      <p>{{ user.uid }}</p>
-    </mat-card-content>
-  </mat-card>
+<div class="col-12">
+  <div class="row justify-content-center">
+    <main *ngIf="user">
+        <mat-card class="user-card">
+          <mat-card-header>
+              <img
+                class="avatar"
+                [src]="user.photoUrl || '//:0'"
+                alt="{{ user.displayName }}"
+                style="margin-right: 1em;">
+              <div class="user-title">
+                <mat-card-title>{{ user.displayName }}</mat-card-title>
+                <mat-card-subtitle>{{ user.email }}</mat-card-subtitle>
+                  <p>{{ user.uid }}</p>
+              </div>
+          </mat-card-header>
+        </mat-card>
+    </main>
+  </div>
 </div>
+

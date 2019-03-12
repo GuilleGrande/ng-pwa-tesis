@@ -10,6 +10,7 @@ import { AuthService } from '../../core/auth.service';
 import { Appointment } from '../appointment.model';
 import { Router } from '@angular/router';
 import { AppointmentService } from '../appointment.service';
+import { User } from 'src/app/user/user.model';
 
 
 export interface Time {
@@ -28,6 +29,7 @@ export class NewAppointmentDialogComponent implements OnInit {
   carServices: CarServiceModel[];
   cars: Observable<Car[]>;
   times: Time[];
+  user: User;
 
   constructor(
     public dialogRef: MatDialogRef<NewAppointmentDialogComponent>,
@@ -37,7 +39,11 @@ export class NewAppointmentDialogComponent implements OnInit {
     private carService: CarService,
     private auth: AuthService,
     private router: Router
-    ) { }
+    ) {
+      this.auth.user.subscribe((user) => {
+        this.user = user;
+      });
+    }
 
   ngOnInit() {
     this.createForm();
@@ -91,7 +97,8 @@ export class NewAppointmentDialogComponent implements OnInit {
 
   saveAppointment() {
     const formData: Appointment = {
-      userId: this.auth.currentUserId,
+      clientId: this.auth.currentUserId,
+      client: this.user.displayName,
       car: this.appointmentForm.get('car').value,
       service: this.appointmentForm.get('carService').value,
       startDate: this.appointmentForm.get('startDate').value.toDateString(),

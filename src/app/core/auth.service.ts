@@ -82,7 +82,11 @@ export class AuthService {
       uid: user.uid,
       email: user.email || null,
       displayName: user.displayName || null,
-      photoUrl: user.photoUrl || 'https://www.gravatar.com/avatar/' + Md5.hashStr(user.uid) + '?d=identicon'
+      photoUrl: user.photoUrl || 'https://www.gravatar.com/avatar/' + Md5.hashStr(user.uid) + '?d=identicon',
+      roles: {
+        client: true,
+        admin: false
+      }
     };
     return userRef.set(data, { merge: true });
   }
@@ -98,6 +102,31 @@ export class AuthService {
               return this.updateUserData(credential.user);
             })
             .catch((error) => console.log(error.message));
+  }
+
+  private checkAuthorization(user: User, allowedRoles: string[]): boolean {
+    if (!user) {
+      console.log('No user found');
+      return false;
+    }
+
+    for (const role of allowedRoles) {
+      if (user.roles[role]) {
+        console.log('User allowed with role: ' + role);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  isClient(user: User): boolean {
+    const allowed = [ 'client' ];
+    return this.checkAuthorization(user, allowed);
+  }
+
+  isAdmin(user: User): boolean {
+    const allowed = [ 'admin' ];
+    return this.checkAuthorization(user, allowed);
   }
 
 }

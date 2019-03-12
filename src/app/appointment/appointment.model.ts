@@ -1,6 +1,7 @@
 export class Appointment {
     id?: string;
-    userId: string;
+    clientId: string;
+    client: string;
     car: string;
     service: string;
     startDate: Date;
